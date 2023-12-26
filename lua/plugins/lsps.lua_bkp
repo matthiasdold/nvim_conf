@@ -1,0 +1,9 @@
+-- Some custom lspconfig setup
+return {
+  {
+    "neovim/nvim-lspconfig",
+    init = {
+      -- My custom server setup
+    },
+  },
+}
