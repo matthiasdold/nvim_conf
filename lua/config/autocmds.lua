@@ -6,19 +6,31 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "python",
   callback = function()
     vim.api.nvim_set_keymap("n", "<C-x>", ":vsplit | :term svenv; python %<CR>", { noremap = true, silent = true })
+    vim.api.nvim_command("set cc=80")
   end,
 })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "rust",
   callback = function()
     vim.api.nvim_set_keymap("n", "<C-x>", ":vsplit | :term cargo run<CR>", { noremap = true, silent = true })
-  end,
-})
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "rust",
-  callback = function()
     vim.api.nvim_set_keymap("n", "<C-b>", ":vsplit | :term cargo build<CR>", { noremap = true, silent = true })
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "tex",
+  callback = function()
+    vim.api.nvim_command("set spell")
+    vim.api.nvim_command("set wrap")
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.api.nvim_command("set spell")
+    vim.api.nvim_command("set wrap")
+  end,
+})
+--
 -- vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])

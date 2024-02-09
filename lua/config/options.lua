@@ -21,4 +21,3 @@ vim.o.filetype = "on" -- needs to be enabled to to have autocmd based of FileTyp
 -- vim.g.tex_flavor = "latex" -- to also have files ot type plaintex treated as latex files
 
 vim.api.nvim_command("set cursorlineopt=number")
-vim.api.nvim_command("set cc=80")
