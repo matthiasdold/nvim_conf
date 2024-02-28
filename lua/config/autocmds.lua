@@ -22,6 +22,9 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.api.nvim_command("set spell")
     vim.api.nvim_command("set wrap")
+    vim.api.nvim_command("setlocal foldtext")
+    vim.api.nvim_command("colorscheme shine")
+    require("gitsigns").detach()
   end,
 })
 
@@ -33,4 +36,4 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 --
--- vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+-- vim.cmd([[autocmd BufWritePre <t buffer> lua vim.lsp.buf.format()]])

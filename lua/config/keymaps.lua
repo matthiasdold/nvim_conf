@@ -27,6 +27,10 @@ vim.api.nvim_set_keymap("n", "<leader>ww", "<Cmd>:w<CR>", { noremap = true, desc
 
 vim.api.nvim_set_keymap("t", "<ESC>", "<C-\\><C-n>", { noremap = true, desc = "leave terminal mode" })
 
+vim.api.nvim_set_keymap("n", "<leader>vt", "<Cmd>:VimtexCompile<CR>", { noremap = true, desc = "Toggle VimtexCompile" })
+
+vim.api.nvim_set_keymap("n", "<leader>zm", "<Cmd>:ZenMode<CR>", { noremap = true, desc = "Toggle ZenMode" })
+
 -- Easier way of editing lua snippets
 -- -> TODO: currently this would be execute on each buffer load, figure out how to fix this
 -- vim.api.nvim_create_user_command("LuaSnipEdit", require("luasnip.loaders").edit_snippet_files())

@@ -40,7 +40,7 @@ return {
         -- - allow_remote_control socket-only
         -- - listen_on unix:/tmp/kitty
         kitty = {
-          enabled = false,
+          enabled = true,
           font = "+4", -- font size increment
         },
         -- this will change the font size on alacritty when in zen mode
@@ -60,7 +60,7 @@ return {
       },
       -- callback where you can add custom code when the Zen window opens
       on_open = function(win)
-        vim.api.nvim_command("setlocal nonumber norelativenumber")
+        vim.api.nvim_command("set nonumber norelativenumber")
       end,
 
       -- callback where you can add custom code when the Zen window closes
