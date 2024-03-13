@@ -23,7 +23,8 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.api.nvim_command("set spell")
     vim.api.nvim_command("set wrap")
     vim.api.nvim_command("setlocal foldtext")
-    vim.api.nvim_command("colorscheme shine")
+    -- vim.api.nvim_command("colorscheme shine")
+    vim.api.nvim_command("Copilot disable")
     require("gitsigns").detach()
   end,
 })
