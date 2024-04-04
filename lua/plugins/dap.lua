@@ -11,6 +11,7 @@ return {
   {
     "jay-babu/mason-nvim-dap.nvim",
   },
+  { "nvim-neotest/nvim-nio" },
   {
     "rcarriga/nvim-dap-ui",
     -- taken from here https://www.youtube.com/watch?v=4BnVeOUeZxc
