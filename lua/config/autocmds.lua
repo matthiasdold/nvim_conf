@@ -9,6 +9,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.api.nvim_command("set cc=80")
   end,
 })
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "rust",
   callback = function()
@@ -36,5 +37,5 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.api.nvim_command("set wrap")
   end,
 })
---
+
 -- vim.cmd([[autocmd BufWritePre <t buffer> lua vim.lsp.buf.format()]])

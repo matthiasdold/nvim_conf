@@ -1,6 +1,6 @@
 return {
   -- recommended requirement for nvim-dap-ui
-  { "folke/neodev.nvim", opts = { library = { plugins = { "nvim-dap-ui" }, types = true } } },
+  -- { "folke/neodev.nvim", opts = { library = { plugins = { "nvim-dap-ui" }, types = true } } },
   {
     "mfussenegger/nvim-dap",
     keys = {

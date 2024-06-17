@@ -12,7 +12,7 @@ return { -- add moonlfy
           repl_definition = {
             python = {
               command = "ipython",
-              format = require("iron.fts.common").bracketed_paste_python,
+              -- format = require("iron.fts.common").bracketed_paste_python,
             },
             -- python = require("iron.fts.python").ipython,
             sh = {

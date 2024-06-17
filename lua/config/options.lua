@@ -16,7 +16,9 @@ vim.o.timeoutlen = 500 --By default timeoutlen is 1000 ms
 -- vim.o.ttimeoutlen = 10 -- Used for key code delays
 -- vim.o.clipboard = "unnamedplus" --Copy paste between vim and everything else
 vim.api.nvim_command("set synmaxcol=120") -- stop syntax highlighting after a certain column to not be super slow on files with long lines
-vim.o.filetype = "on" -- needs to be enabled to to have autocmd based of FileType working
+
+-- Had to remove the line below to work properly on windows / might be still usefull for the unix setup
+-- vim.o.filetype = "on" -- needs to be enabled to to have autocmd based of FileType working
 -- vim.o.hidden = true -- To be able to move out of a modified buffer without writing
 -- vim.g.tex_flavor = "latex" -- to also have files ot type plaintex treated as latex files
 
