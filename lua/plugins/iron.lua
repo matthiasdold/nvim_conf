@@ -10,9 +10,13 @@ return { -- add moonlfy
           scratch_repl = true,
           -- Your repl definitions come here
           repl_definition = {
-            python = require("iron.fts.python").ipython,
+            python = {
+              command = "ipython",
+              format = require("iron.fts.common").bracketed_paste_python,
+            },
+            -- python = require("iron.fts.python").ipython,
             sh = {
-              command = { "fish" },
+              command = { "ps1" },
             },
           },
           preferred = {
@@ -32,7 +36,7 @@ return { -- add moonlfy
           mark_motion = "<space>mc",
           mark_visual = "<space>mc",
           remove_mark = "<space>md",
-          cr = "<space>s<cr>",
+          cr = "<space>sr",
           interrupt = "<space>s<space>",
           exit = "<space>sq",
           clear = "<space>cl",
