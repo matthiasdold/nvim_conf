@@ -1,20 +1,20 @@
 return {
-  -- recommended requirement for nvim-dap-ui
-  { "folke/neodev.nvim", opts = { library = { plugins = { "nvim-dap-ui" }, types = true } } },
   {
     "mfussenegger/nvim-dap",
-    keys = {
-      { "<leader>dt", "<Cmd>DapToggleBreakpoint<CR>", desc = "Toggle dap breakpoint" },
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "jay-babu/mason-nvim-dap.nvim",
+      "theHamsta/nvim-dap-virtual-text",
+      "nvim-neotest/nvim-nio",
     },
-  },
-  -- for mason management of the dap clients
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-  },
-  { "nvim-neotest/nvim-nio" },
-  {
-    "rcarriga/nvim-dap-ui",
-    -- taken from here https://www.youtube.com/watch?v=4BnVeOUeZxc
+    keys = {
+      { "<leader>db", "<Cmd>DapToggleBreakpoint<CR>", desc = "Toggle dap breakpoint" },
+      { "<leader>dc", "<Cmd>DapContinue<CR>",         desc = "Dap Conitnue" },
+      { "<leader>di", "<Cmd>DapStepInto<CR>",         desc = "DapStepInto" },
+      { "<leader>do", "<Cmd>DapStepOut<CR>",          desc = "DapStepOut" },
+      { "<leader>dv", "<Cmd>DapStepOver<CR>",         desc = "DapStepOver" },
+      { "<leader>dt", "<Cmd>DapTerminate<CR>",        desc = "DapTerminate" },
+    },
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
@@ -30,18 +30,21 @@ return {
       end
     end,
   },
-  -- VERY important for being able to debug modules! -> see keymaps for starting my debugging
-  -- [ ] Also install debugpy via Mason
-  {
-    "HiPhish/debugpy.nvim",
-    keys = {
-      {
-        "<leader>dc",
-        function()
-          vim.cmd("Debugpy module " .. vim.fn.expand("%"):gsub("/", "."):gsub(".py", ""))
-        end,
-        desc = "Dap continue",
-      },
-    },
-  },
 }
+-- {
+--   ,
+--   -- taken from here https://www.youtube.com/watch?v=4BnVeOUeZxc
+-- -- VERY important for being able to debug modules! -> see keymaps for starting my debugging
+-- -- [ ] Also install debugpy via Mason
+-- {
+--   "HiPhish/debugpy.nvim",
+--   keys = {
+--     {
+--       "<leader>dc",
+--       function()
+--         vim.cmd("Debugpy module " .. vim.fn.expand("%"):gsub("/", "."):gsub(".py", ""))
+--       end,
+--       desc = "Dap continue",
+--     },
+--   },
+-- },
