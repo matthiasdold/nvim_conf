@@ -10,7 +10,11 @@ return { -- add moonlfy
           scratch_repl = true,
           -- Your repl definitions come here
           repl_definition = {
-            python = require("iron.fts.python").ipython,
+            -- python = require("iron.fts.python").ipython,
+            python = {
+              command = { "ipython", "--no-autoindent" },
+              format = require("iron.fts.common").bracketed_paste_python,
+            },
             sh = {
               command = { "fish" },
             },
