@@ -29,6 +29,7 @@ vim.api.nvim_set_keymap("n", "<leader>ww", "<Cmd>:w<CR>", { noremap = true, desc
 vim.api.nvim_set_keymap("t", "<ESC>", "<C-\\><C-n>", { noremap = true, desc = "leave terminal mode" })
 
 vim.api.nvim_set_keymap("n", "<leader>vt", "<Cmd>:VimtexCompile<CR>", { noremap = true, desc = "Toggle VimtexCompile" })
+vim.api.nvim_set_keymap("n", "<leader>ve", "<Cmd>:VimtexErrors<CR>", { noremap = true, desc = "Show VimtexErrors" })
 
 vim.api.nvim_set_keymap("n", "<leader>zm", "<Cmd>:ZenMode<CR>", { noremap = true, desc = "Toggle ZenMode" })
 
