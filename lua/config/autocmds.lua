@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.api.nvim_set_keymap("n", "<C-x>", ":vsplit | :term svenv; python %<CR>", { noremap = true, silent = true })
     vim.api.nvim_command("set cc=80")
-    vim.api.nvim_set_keymap("n", "<leader>dd", "ibreakpoint()<Esc>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dd", "obreakpoint()<Esc>", { noremap = true, silent = true })
   end,
 })
 vim.api.nvim_create_autocmd("FileType", {
