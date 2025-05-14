@@ -10,7 +10,7 @@ return {
         -- of 512, serves as an good starting point to estimate your computing
         -- power. Once you have a reliable estimate of your local computing power,
         -- you should adjust the context window to a larger value.
-        context_window = 1024,
+        context_window = 2048,
         provider_options = {
           -- openai_fim_compatible = {
           --   -- Needs to be a non-null ENV variable: https://www.reddit.com/r/neovim/comments/1hejd47/minuetainvim_code_completion_based_on_llm_now_add/
@@ -31,7 +31,8 @@ return {
             stream = true,
             optional = {
               stop = nil, -- the identifier to stop the completion generation
-              max_tokens = nil,
+              max_tokens = 128,
+              top_p = 0.95,
             },
           },
         },
