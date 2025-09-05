@@ -1,7 +1,10 @@
 return {
   "saghen/blink.cmp",
   optional = true,
-  dependencies = { "saghen/blink.compat" },
+  dependencies = {
+    "saghen/blink.compat",
+    "rafamadriz/friendly-snippets",
+  },
   opts = {
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
@@ -21,5 +24,6 @@ return {
       },
       ["<S-Tab>"] = { "snippet_backward", "fallback" },
     },
+    fuzzy = { implementation = "lua" },
   },
 }
