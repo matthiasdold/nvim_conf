@@ -2,6 +2,9 @@
 return {
   {
     "folke/noice.nvim",
+    enabled = false, -- disable and test if vim performance is better
+    event = "VeryLazy",
+    opts = {},
     config = function()
       require("noice").setup({
         cmdline = {
