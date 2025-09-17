@@ -18,7 +18,7 @@ vim.api.nvim_command("set synmaxcol=120") -- stop syntax highlighting after a ce
 vim.api.nvim_command("set cursorlineopt=number")
 
 -- vim.g.lazyvim_python_lsp = "jedi_language_server"
-vim.g.lazyvim_python_lsp = "pyright"
+-- vim.g.lazyvim_python_lsp = "pyright"
 vim.g.lazyvim_python_ruff = "ruff"
 
 vim.g.lazyvim_blink_main = true
