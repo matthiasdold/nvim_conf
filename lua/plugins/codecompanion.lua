@@ -2,7 +2,29 @@ return {
   {
     "olimorris/codecompanion.nvim",
     keys = {
-      { "<leader>aa", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion", mode = { "n", "v" } },
+      { "<leader>aa", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion", mode = "n" },
+      {
+        "<leader>aa",
+        function()
+          local start_line = vim.fn.line("v")
+          local end_line = vim.fn.line(".")
+          local bufname = vim.api.nvim_buf_get_name(0)
+          local filename = vim.fn.fnamemodify(bufname, ":~:.")
+
+          -- Ensure start_line is before end_line
+          if start_line > end_line then
+            start_line, end_line = end_line, start_line
+          end
+
+          local context = string.format("%s:%d-%d", filename, start_line, end_line)
+          vim.cmd("CodeCompanionChat Toggle")
+          vim.defer_fn(function()
+            vim.api.nvim_feedkeys(context, "n", false)
+          end, 100)
+        end,
+        desc = "CodeCompanion with selection context",
+        mode = "v",
+      },
     },
     opts = {
       adapters = {
@@ -30,6 +52,14 @@ return {
         },
         inline = {
           adapter = "claude_code",
+        },
+      },
+      display = {
+        chat = {
+          separator = "─", -- Separator between messages (uses CodeCompanionChatSeparator highlight group)
+          show_header_separator = true, -- Show separator lines between prompts and responses
+          show_settings = true,
+          show_token_count = true,
         },
       },
       extensions = {
