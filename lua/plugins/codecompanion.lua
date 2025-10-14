@@ -56,10 +56,29 @@ return {
       },
       display = {
         chat = {
+          window = {
+            layout = "horizontal", -- Horizontal split
+            height = 0.2, -- 20% of screen height
+          },
           separator = "─", -- Separator between messages (uses CodeCompanionChatSeparator highlight group)
           show_header_separator = true, -- Show separator lines between prompts and responses
           show_settings = true,
           show_token_count = true,
+          keymaps = {
+            send = {
+              modes = {
+                i = "<C-s>",
+              },
+              index = 1,
+              callback = function(chat)
+                require("codecompanion").actions.static.send(chat)
+                vim.schedule(function()
+                  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+                end)
+              end,
+              description = "Send message",
+            },
+          },
         },
       },
       extensions = {
