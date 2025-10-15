@@ -3,8 +3,8 @@
 -- Add any additional keymaps here
 
 -- Repl
-vim.api.nvim_set_keymap("n", "<leader>rr", ":IronRestart<CR>", { noremap = true, desc = "Restart iron repl" })
-vim.api.nvim_set_keymap("n", "<leader>ro", ":IronRepl<CR>", { noremap = true, desc = "Toggle IronRepl" })
+vim.api.nvim_set_keymap("n", "<leader>rn", ":IronRestart<CR>", { noremap = true, desc = "Restart iron repl" })
+vim.api.nvim_set_keymap("n", "<leader>rr", ":IronRepl<CR>", { noremap = true, desc = "Toggle IronRepl" })
 vim.api.nvim_set_keymap("n", "<leader>rh", ":IronReplHere<CR>", { noremap = true, desc = "IronReplHere" })
 vim.api.nvim_set_keymap(
   "n",
