@@ -13,6 +13,47 @@ vim.api.nvim_set_keymap(
   { noremap = true, desc = "Start ipython post mortem debugger" }
 )
 
+-- Python debugging breakpoints
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>bb",
+  "oimport ipdb; ipdb.set_trace()<Esc>",
+  { noremap = true, silent = true, desc = "Insert ipdb breakpoint" }
+)
+
+-- Run Python file as module in new terminal
+function RunPythonModuleInTerminal()
+  local file_path = vim.fn.expand("%:p")
+  local root_dir = vim.fn.getcwd()
+
+  -- Get relative path from root
+  local relative_path = vim.fn.fnamemodify(file_path, ":.")
+
+  -- Convert path to module format (folder1/folder2/script.py -> folder1.folder2.script)
+  local module_path = relative_path:gsub("%.py$", ""):gsub("/", ".")
+
+  local cmd
+  -- If module path contains dots (i.e., in a package), run as module
+  if module_path:match("%.") then
+    cmd = "ipython -m " .. module_path
+  else
+    -- If it's a root-level file, run as script to avoid conflicts with built-in modules
+    cmd = "ipython " .. vim.fn.shellescape(file_path)
+  end
+
+  -- Open terminal in current window and run command
+  vim.cmd("enew")
+  vim.fn.termopen(cmd)
+  vim.cmd("startinsert")
+end
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>dr",
+  ":lua RunPythonModuleInTerminal()<CR>",
+  { noremap = true, silent = true, desc = "Run Python file as module in terminal" }
+)
+
 -- Latex related
 function OpenZathuraPdf()
   os.execute("zathura " .. vim.fn.expand("%:p:r") .. ".pdf" .. " &")
@@ -73,3 +114,13 @@ function OpenFileInNewBuffer()
   end
 end
 vim.api.nvim_set_keymap("n", "gx", ":lua OpenFileInNewBuffer()<CR>", { noremap = true, silent = true })
+
+-- Add a `# type: ignore` comment to the end
+
+-- Python debugging breakpoints
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>ti",
+  "A # type: ignore<Esc>",
+  { noremap = true, silent = true, desc = "Insert ipdb breakpoint" }
+)
