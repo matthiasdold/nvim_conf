@@ -22,6 +22,17 @@ return {
       --   "snippet_forward",
       --   "fallback",
       -- },
+      ["<Tab>"] = {
+        function(_)
+          if require("copilot.suggestion").is_visible() then
+            vim.defer_fn(require("copilot.suggestion").accept, 30)
+            return true
+          end
+        end,
+        "accept",
+        "snippet_forward",
+        "fallback",
+      },
       ["<S-Tab>"] = { "snippet_backward", "fallback" },
     },
     fuzzy = { implementation = "lua" },

@@ -18,7 +18,7 @@ return {
         auto_trigger = true,
         virtual_text_hl = "Comment",
         keymap = {
-          accept = "<Tab>", -- handled by nvim-cmp / blink.cmp
+          accept = false, -- handled by nvim-cmp / blink.cmp
           next = "<M-]>",
           prev = "<M-[>",
         },
