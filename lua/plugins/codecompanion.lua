@@ -28,20 +28,29 @@ return {
     },
     opts = {
       adapters = {
-        acp = {
-          claude_code = function()
-            return require("codecompanion.adapters").extend(
-              "claude_code",
-              { env = {
-                CLAUDE_CODE_OAUTH_TOKEN = os.getenv("CLAUDE_CODE_TOKEN"),
-              } }
-            )
-          end,
-        },
+        copilot = function()
+          return require("codecompanion.adapters").extend("copilot", {
+            schema = {
+              -- model = {
+              --   default = "claude-sonnet-4",
+              -- },
+            },
+          })
+        end,
+        -- acp = {
+        --   claude_code = function()
+        --     return require("codecompanion.adapters").extend(
+        --       "claude_code",
+        --       { env = {
+        --         CLAUDE_CODE_OAUTH_TOKEN = os.getenv("CLAUDE_CODE_TOKEN"),
+        --       } }
+        --     )
+        --   end,
+        -- },
       },
       strategies = {
         chat = {
-          adapter = "claude_code",
+          adapter = "copilot",
           variables = {
             ["buffer"] = {
               opts = {
@@ -51,8 +60,21 @@ return {
           },
         },
         inline = {
-          adapter = "claude_code",
+          adapter = "copilot",
         },
+        -- chat = {
+        --   adapter = "claude_code",
+        --   variables = {
+        --     ["buffer"] = {
+        --       opts = {
+        --         default_params = "watch",
+        --       },
+        --     },
+        --   },
+        -- },
+        -- inline = {
+        --   adapter = "claude_code",
+        -- },
       },
       display = {
         chat = {

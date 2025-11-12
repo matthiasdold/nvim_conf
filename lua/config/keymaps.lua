@@ -124,3 +124,13 @@ vim.api.nvim_set_keymap(
   "A # type: ignore<Esc>",
   { noremap = true, silent = true, desc = "Insert ipdb breakpoint" }
 )
+
+-- Window resize with Ctrl+Shift+arrow keys
+vim.api.nvim_set_keymap("n", "_", ":resize +4<CR>", { noremap = true, silent = true, desc = "Increase window height" })
+vim.api.nvim_set_keymap("n", "-", ":resize -4<CR>", { noremap = true, silent = true, desc = "Decrease window height" })
+vim.api.nvim_set_keymap(
+  "n",
+  "+",
+  ":vertical resize +4<CR>",
+  { noremap = true, silent = true, desc = "Increase window width" }
+)
