@@ -25,25 +25,28 @@ vim.api.nvim_set_keymap(
 function RunPythonModuleInTerminal()
   local file_path = vim.fn.expand("%:p")
   local root_dir = vim.fn.getcwd()
-
-  -- Get relative path from root
   local relative_path = vim.fn.fnamemodify(file_path, ":.")
-
-  -- Convert path to module format (folder1/folder2/script.py -> folder1.folder2.script)
   local module_path = relative_path:gsub("%.py$", ""):gsub("/", ".")
 
-  local cmd
-  -- If module path contains dots (i.e., in a package), run as module
-  if module_path:match("%.") then
-    cmd = "ipython -m " .. module_path
+  -- Detect python executable from virtualenv or fallback
+  local venv = vim.fn.getenv("VIRTUAL_ENV")
+  local python_exe
+  if venv and venv ~= "" then
+    python_exe = venv .. "/bin/python"
   else
-    -- If it's a root-level file, run as script to avoid conflicts with built-in modules
-    cmd = "ipython " .. vim.fn.shellescape(file_path)
+    python_exe = "python"
   end
 
-  -- Open terminal in current window and run command
-  vim.cmd("enew")
-  vim.fn.termopen(cmd)
+  local cmd
+  if module_path:match("%.") then
+    cmd = python_exe .. " -m IPython -m " .. module_path
+  else
+    cmd = python_exe .. " -m IPython " .. vim.fn.shellescape(file_path)
+  end
+
+  vim.cmd("vsplit") -- Open vertical split
+  vim.cmd("enew") -- New buffer in split
+  vim.cmd("terminal " .. cmd)
   vim.cmd("startinsert")
 end
 
