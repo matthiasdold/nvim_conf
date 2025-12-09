@@ -14,48 +14,48 @@ vim.api.nvim_set_keymap(
 )
 
 -- Python debugging breakpoints
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>bb",
-  "oimport ipdb; ipdb.set_trace()<Esc>",
-  { noremap = true, silent = true, desc = "Insert ipdb breakpoint" }
-)
-
+-- vim.api.nvim_set_keymap(
+--   "n",
+--   "<leader>bb",
+--   "oimport ipdb; ipdb.set_trace()<Esc>",
+--   { noremap = true, silent = true, desc = "Insert ipdb breakpoint" }
+-- )
+--
 -- Run Python file as module in new terminal
-function RunPythonModuleInTerminal()
-  local file_path = vim.fn.expand("%:p")
-  local root_dir = vim.fn.getcwd()
-  local relative_path = vim.fn.fnamemodify(file_path, ":.")
-  local module_path = relative_path:gsub("%.py$", ""):gsub("/", ".")
-
-  -- Detect python executable from virtualenv or fallback
-  local venv = vim.fn.getenv("VIRTUAL_ENV")
-  local python_exe
-  if venv and venv ~= "" then
-    python_exe = venv .. "/bin/python"
-  else
-    python_exe = "python"
-  end
-
-  local cmd
-  if module_path:match("%.") then
-    cmd = python_exe .. " -m IPython -m " .. module_path
-  else
-    cmd = python_exe .. " -m IPython " .. vim.fn.shellescape(file_path)
-  end
-
-  vim.cmd("vsplit") -- Open vertical split
-  vim.cmd("enew") -- New buffer in split
-  vim.cmd("terminal " .. cmd)
-  vim.cmd("startinsert")
-end
-
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>dr",
-  ":lua RunPythonModuleInTerminal()<CR>",
-  { noremap = true, silent = true, desc = "Run Python file as module in terminal" }
-)
+-- function RunPythonModuleInTerminal()
+--   local file_path = vim.fn.expand("%:p")
+--   local root_dir = vim.fn.getcwd()
+--   local relative_path = vim.fn.fnamemodify(file_path, ":.")
+--   local module_path = relative_path:gsub("%.py$", ""):gsub("/", ".")
+--
+--   -- Detect python executable from virtualenv or fallback
+--   local venv = vim.fn.getenv("VIRTUAL_ENV")
+--   local python_exe
+--   if venv and venv ~= "" then
+--     python_exe = venv .. "/bin/python"
+--   else
+--     python_exe = "python"
+--   end
+--
+--   local cmd
+--   if module_path:match("%.") then
+--     cmd = python_exe .. " -m IPython -m " .. module_path
+--   else
+--     cmd = python_exe .. " -m IPython " .. vim.fn.shellescape(file_path)
+--   end
+--
+--   vim.cmd("vsplit") -- Open vertical split
+--   vim.cmd("enew") -- New buffer in split
+--   vim.cmd("terminal " .. cmd)
+--   vim.cmd("startinsert")
+-- end
+--
+-- vim.api.nvim_set_keymap(
+--   "n",
+--   "<leader>dr",
+--   ":lua RunPythonModuleInTerminal()<CR>",
+--   { noremap = true, silent = true, desc = "Run Python file as module in terminal" }
+-- )
 
 -- Latex related
 function OpenZathuraPdf()
