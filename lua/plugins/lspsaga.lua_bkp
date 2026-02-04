@@ -3,7 +3,11 @@ return {
     "glepnir/lspsaga.nvim",
     event = "LspAttach",
     config = function()
-      require("lspsaga").setup({})
+      require("lspsaga").setup({
+        lightbulb = {
+          enable = false, -- disable lightbulb feature to stop flickering when gutter/sidecolumn are active
+        },
+      })
     end,
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },

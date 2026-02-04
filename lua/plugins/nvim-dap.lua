@@ -16,7 +16,6 @@ return {
       { "<F8>", "<Cmd>DapStepInto<CR>", desc = "DapStepInto", mode = "n" },
       { "<F9>", "<Cmd>DapStepOut<CR>", desc = "DapStepOut", mode = "n" },
       { "<F10>", "<Cmd>DapStepOver<CR>", desc = "DapStepOver", mode = "n" },
-      { "<F6>", "<Cmd>DapStepBack<CR>", desc = "DapStepBack", mode = "n" },
       { "<leader>dr", "<Cmd>DapReplOpen<CR>", desc = "DapReplOpen", mode = "n" },
       { "<leader>dt", "<Cmd>DapTerminate<CR>", desc = "DapTerminate", mode = "n" },
     },
@@ -46,7 +45,7 @@ return {
             step_into = " (F8)",
             step_over = " (F10)",
             step_out = " (F9)",
-            step_back = " (F6)",
+            step_back = "",
             run_last = "",
             terminate = " (<leader>dt)", -- \t adds a little spacing
           },
