@@ -30,3 +30,5 @@ vim.opt.showmatch = true -- Show matching brackets
 vim.opt.matchtime = 2 -- Tenths of a second to show matching brackets
 -- adds <> to % matchpairs
 vim.opt.matchpairs:append("<:>")
+
+
