@@ -24,9 +24,16 @@ return {
       --   "fallback",
       -- },
       ["<Tab>"] = {
+        -- This was used with copilot
+        -- function(_)
+        --   if require("copilot.suggestion").is_visible() then
+        --     vim.defer_fn(require("copilot.suggestion").accept, 30)
+        --     return true
+        --   end
+        -- end,
         function(_)
-          if require("copilot.suggestion").is_visible() then
-            vim.defer_fn(require("copilot.suggestion").accept, 30)
+          if require("neocodeium").visible() then
+            require("neocodeium").accept()
             return true
           end
         end,
