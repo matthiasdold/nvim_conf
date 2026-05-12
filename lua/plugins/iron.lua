@@ -12,8 +12,18 @@ return { -- add moonlfy
           repl_definition = {
             -- python = require("iron.fts.python").ipython,
             python = {
-              command = { "ipython", "--no-autoindent" },
-              format = require("iron.fts.common").bracketed_paste_python,
+              command = { "ipython", "--no-autoindent" }, -- simple-prompt for faster execution, --quick for faster execution and less output
+              -- format = require("iron.fts.common").bracketed_paste_python,
+              -- format = require("iron.fts.common").default,
+              format = function(lines)
+                local filtered = {}
+                for _, line in ipairs(lines) do
+                  if not line:match("^%s*#") then -- ignore python comments
+                    table.insert(filtered, line)
+                  end
+                end
+                return table.concat(filtered, "\n") .. "\n\n"
+              end,
             },
             sh = {
               command = { "fish" },
@@ -41,6 +51,7 @@ return { -- add moonlfy
           exit = "<space>sq",
           clear = "<space>cl",
         },
+        ignore_blank_lines = true, -- ignore blank lines when sending visual selection
         -- If the highlight is on, you can change how it looks
         -- For the available options, check nvim_set_hl
         highlight = {

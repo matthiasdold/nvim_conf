@@ -1,4 +1,3 @@
--- Disabled as I do not really use it anyways
 -- Trying the config from here https://github.com/mfussenegger/nvim-dap/discussions/846
 return {
   {

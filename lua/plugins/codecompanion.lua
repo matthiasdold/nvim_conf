@@ -28,15 +28,17 @@ return {
     },
     opts = {
       adapters = {
-        copilot = function()
-          return require("codecompanion.adapters").extend("copilot", {
-            schema = {
-              -- model = {
-              --   default = "claude-sonnet-4",
-              -- },
-            },
-          })
-        end,
+        http = {
+          copilot = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              schema = {
+                model = {
+                  default = "claude-haiku-4.5",
+                },
+              },
+            })
+          end,
+        },
         -- acp = {
         --   claude_code = function()
         --     return require("codecompanion.adapters").extend(

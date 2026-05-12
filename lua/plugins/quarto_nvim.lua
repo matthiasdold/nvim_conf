@@ -1,4 +1,3 @@
--- Relatively slow start, disable as I do not need it most of the time
 -- plugins/quarto.lua
 return {
   {
