@@ -58,15 +58,36 @@ vim.api.nvim_set_keymap(
 -- )
 
 -- Latex related
-function OpenZathuraPdf()
-  os.execute("zathura " .. vim.fn.expand("%:p:r") .. ".pdf" .. " &")
+-- <leader>zz previews the PDF for the current buffer. LaTeX opens in Skim,
+-- which auto-reloads on recompile and supports synctex; everything else
+-- (markdown) keeps using zathura.
+function OpenPdfPreview()
+  if vim.bo.filetype ~= "tex" then
+    vim.system({ "zathura", vim.fn.expand("%:p:r") .. ".pdf" })
+    return
+  end
+
+  -- Preview the *main* document's PDF, not the current buffer's: a chapter
+  -- fragment has no PDF of its own. vimtex's compiler.get_file already
+  -- resolves the root document and any latexmkrc $out_dir, so ask it rather
+  -- than rebuilding that path by hand.
+  local ok, pdf = pcall(vim.fn.eval, "b:vimtex.compiler.get_file('pdf')")
+  if not ok or pdf == "" then
+    pdf = vim.fn.expand("%:p:r") .. ".pdf"
+  end
+
+  if vim.fn.filereadable(pdf) == 0 then
+    vim.notify("No PDF at " .. pdf .. " -- compile first (<leader>vt)", vim.log.levels.WARN)
+    return
+  end
+  vim.system({ "open", "-a", "Skim", pdf })
 end
 
 vim.api.nvim_set_keymap(
   "n",
   "<leader>zz",
-  "<Cmd>:lua OpenZathuraPdf()<CR>",
-  { noremap = true, desc = "Open zathura pdf preview" }
+  "<Cmd>:lua OpenPdfPreview()<CR>",
+  { noremap = true, desc = "Open pdf preview (Skim for tex, zathura otherwise)" }
 )
 
 vim.api.nvim_set_keymap("n", "<leader>ww", "<Cmd>:w<CR>", { noremap = true, desc = "save file" })
