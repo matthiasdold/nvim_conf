@@ -4,6 +4,10 @@ vim.o.mouse = "a" --Enable your mouse
 vim.o.termguicolors = true
 -- vim.o.splitright = true --Vertical splits will automatically be to the right
 vim.o.conceallevel = 0 --So that I can see `` in markdown files
+
+-- Words added with `zg` while writing go here. Kept in the nvim git repo so
+-- domain vocabulary (EEG, Hilbert, neurofeedback, ...) travels with the config.
+vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 -- vim.wo.relativenumber = true
 vim.wo.signcolumn = "auto" --Always show the signcolumn, otherwise it would shift the text each time -- else too much flickering on switching focus
 vim.o.updatetime = 300 --Faster completion

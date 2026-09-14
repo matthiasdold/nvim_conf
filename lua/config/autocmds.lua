@@ -18,23 +18,73 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Prose-style editing for LaTeX and markdown. Options are window/buffer-local
+-- so they do not leak into code buffers opened later.
+--
+-- NOTE: user autocmds are loaded on VeryLazy, i.e. AFTER the FileType event has
+-- already fired for a file opened on the command line (`nvim thesis.tex`).
+-- The autocmd alone therefore misses the very first buffer, so prose_setup() is
+-- also applied directly to any matching window already open at load time.
+local prose_filetypes = { tex = true, plaintex = true, bib = true, markdown = true }
+
+local function prose_setup(buf, win)
+  vim.api.nvim_buf_call(buf, function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = { "en_gb" }
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true -- wrap at word boundaries, not mid-word
+    vim.opt_local.breakindent = true -- keep the indent of wrapped lines
+
+    -- Conceal maths/markup in LaTeX only; the global conceallevel stays 0 so
+    -- backticks remain visible in markdown.
+    if vim.bo[buf].filetype ~= "markdown" then
+      vim.opt_local.conceallevel = 2
+    end
+  end)
+
+  -- spell/wrap/conceallevel are window-local: set them on the window too, so
+  -- they survive LazyVim's global `opt.wrap = false` applied during init.
+  if win and vim.api.nvim_win_is_valid(win) then
+    vim.wo[win].spell = true
+    vim.wo[win].wrap = true
+    vim.wo[win].linebreak = true
+    vim.wo[win].breakindent = true
+    if vim.bo[buf].filetype ~= "markdown" then
+      vim.wo[win].conceallevel = 2
+    end
+  end
+
+  -- Move by screen line, so j/k do not jump whole wrapped paragraphs.
+  for _, key in ipairs({ "j", "k" }) do
+    vim.keymap.set("n", key, "v:count == 0 ? 'g" .. key .. "' : '" .. key .. "'", {
+      expr = true,
+      buffer = buf,
+      desc = "Move by display line",
+    })
+  end
+end
+
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "tex",
-  callback = function()
-    vim.api.nvim_command("set spell")
-    vim.api.nvim_command("set wrap")
-    vim.api.nvim_command("setlocal foldtext")
-    -- vim.api.nvim_command("colorscheme shine")
-    vim.api.nvim_command("Copilot disable")
-    -- require("gitsigns").detach()   -- potentially no longer part of Lazy?
+  pattern = vim.tbl_keys(prose_filetypes),
+  callback = function(args)
+    prose_setup(args.buf, vim.api.nvim_get_current_win())
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
+-- Catch buffers whose FileType already fired before this file was loaded.
+-- Deferred to VeryLazy: at the time this file is sourced the startup window
+-- does not yet display the command-line file, so setting options here directly
+-- would be applied to the wrong (empty) window.
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  once = true,
   callback = function()
-    vim.api.nvim_command("set spell")
-    vim.api.nvim_command("set wrap")
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      local buf = vim.api.nvim_win_get_buf(win)
+      if prose_filetypes[vim.bo[buf].filetype] then
+        prose_setup(buf, win)
+      end
+    end
   end,
 })
 

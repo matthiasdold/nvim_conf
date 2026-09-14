@@ -42,6 +42,7 @@ return {
         "fallback",
       },
       ["<S-Tab>"] = { "snippet_backward", "fallback" },
+      ["<C-CR>"] = { "accept", "fallback" },
     },
     fuzzy = { implementation = "lua" },
   },
