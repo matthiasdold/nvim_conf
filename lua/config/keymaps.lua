@@ -158,3 +158,8 @@ vim.api.nvim_set_keymap(
   ":vertical resize +4<CR>",
   { noremap = true, silent = true, desc = "Increase window width" }
 )
+
+-- Light/dark theme toggle: flips nvim and kitty together (see config/theme.lua).
+vim.keymap.set("n", "<leader>ut", function()
+  require("config.theme").toggle_all()
+end, { desc = "Toggle light/dark theme (nvim + kitty)" })

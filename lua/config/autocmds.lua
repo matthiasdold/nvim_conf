@@ -103,3 +103,16 @@ vim.api.nvim_create_autocmd("User", {
 --
 --
 -- vim.cmd([[autocmd BufWritePre <t buffer> lua vim.lsp.buf.format()]])
+
+-- Adopt the light/dark mode last chosen by kitty-theme-toggle, so a newly
+-- started nvim matches the terminal instead of always coming up dark.
+--
+-- Called directly rather than from a VeryLazy autocmd: this file is itself
+-- loaded on VeryLazy (see line 1), so such an autocmd would register after the
+-- event had already fired and would never run. vim.schedule defers it past
+-- LazyVim's own colorscheme call, which would otherwise overwrite it.
+vim.schedule(function()
+  pcall(function()
+    require("config.theme").sync_from_state()
+  end)
+end)
